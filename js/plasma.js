@@ -37,6 +37,7 @@ var $plasma = function()
 		canvas.height = height;
         ctx = canvas.getContext("2d");
 
+		var fractal = new $fractal();
 		//generate points
 		this.points = this.getPoints(width, height, roughness);
 		
@@ -46,7 +47,12 @@ var $plasma = function()
 			{
 				//get color for each pixel
 				var color = this.getColor(this.points[x][y], plasmaType);
-				ctx.fillStyle = "rgb("+color.r+","+color.g+","+color.b+")";
+				var xy = [x, y];
+				var c = clamp(fractal.fractalNoise(xy) + randn_bm()*0.01);
+				var red = ~~((color.r+(.55+c)/2 * 256)/2);
+				var green = ~~((color.g+(.55+c)/2 * 256)/2);
+				var blue = ~~((color.b+255)/2);
+				ctx.fillStyle = "rgb("+red+","+green+","+blue+")";
 				ctx.fillRect(x, y, 1, 1);
 			}
 		}

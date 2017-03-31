@@ -28,9 +28,7 @@ ids = ["tmp0", "tmp1", "tmp2", "tmp3",
 nFrames = ids.length;
 currentFrame = 0;
 var pl = new $plasma();
-pl.init(canvas, width, height, 10, 1);
-pl = new $fractal();
-pl.init(canvas, width, height);
+pl.init(canvas, width, height, 12, 1);
 setInterval(intervalHandler, 200);
 function intervalHandler() {
   pl.draw();

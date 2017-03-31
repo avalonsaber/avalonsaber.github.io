@@ -6,6 +6,10 @@ function mix(a, b, c){
 	return (a+b+c)/3.0;
 }
 
+function clamp(val) {
+	return (val < 0) ? 0 : (val > 1) ? 1 : val;
+}
+
 $fractal = function(){
 	var width, height, canvas, ctx;
 	var dataURL;
@@ -27,7 +31,7 @@ $fractal = function(){
 	this.fractalNoise = function(xy) {
 		var w = 0.7;
 		var f = 0.0;
-		for (var i=0; i<3; i++) {
+		for (var i=0; i<2; i++) {
 			f += this.noise(xy) * w;
 			w *= 0.5;
 			xy[0] *= 2.333;
@@ -48,7 +52,7 @@ $fractal = function(){
 				var oldgreen = oldcolor[1];
 				var oldblue = oldcolor[2];
 				var xy = [x, y];
-				var c = this.clamp(this.fractalNoise(xy) + randn_bm()*0.01);
+				var c = this.clamp(this.fractalNoise(xy));
 				var red = ~~((oldred+(.55+c)/2 * 256)/2);
 				var green = ~~((oldgreen+(.55+c)/2 * 256)/2);
 				var blue = ~~((oldblue+255)/2);
@@ -64,8 +68,5 @@ $fractal = function(){
 	this.draw = function() {
 		//ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(document.getElementById('frame'), 0, 0, canvas.width, canvas.height);
-	}
-	this.clamp = function(val) {
-		return (val < 0) ? 0 : (val > 1) ? 1 : val;
 	}
 }
