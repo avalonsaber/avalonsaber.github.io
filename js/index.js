@@ -1,3 +1,5 @@
+// Based on HTML5 Canvas Tree in the Breeze
+// Websites: http://wonderfl.net/c/9KQy and http://cssdeck.com/labs/fjqj6ifd
 
 // Grass
 canvas = document.getElementById("myCanvas");
@@ -27,6 +29,8 @@ nFrames = ids.length;
 currentFrame = 0;
 var pl = new $plasma();
 pl.init(canvas, width, height, 10, 1);
+pl = new $fractal();
+pl.init(canvas, width, height);
 setInterval(intervalHandler, 200);
 function intervalHandler() {
   pl.draw();
@@ -65,12 +69,12 @@ function createTree(g, px, py, angle, len, n, c) {
     createTree(g, x2, y2, angleRight, len*2/3, n-1, c);
   }
   
-function drawLine(g, n, x1, y1, x2, y2, color){
-  g.beginPath();
-  g.lineWidth = n > 0 ? n : 1;
-  g.strokeStyle = color;
-  g.moveTo(x1, y1);
-  g.lineTo(x2, y2);
-  g.stroke();
-}
+	function drawLine(g, n, x1, y1, x2, y2, color){
+	  g.beginPath();
+	  g.lineWidth = n > 0 ? n : 1;
+	  g.strokeStyle = color;
+	  g.moveTo(x1, y1);
+	  g.lineTo(x2, y2);
+	  g.stroke();
+	}
 }
