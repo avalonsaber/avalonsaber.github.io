@@ -22,11 +22,28 @@ var $plasma = function()
 	var width, height, canvas, ctx;
 	var types = { PLASMA: 0, CLOUD: 1 };
 	var dataURL;
+	var markov = [];
+	this.lawnMarkovRW = function(w, h) {
+		var pos = ~~(0.9*h);
+		for (var i=0; i<w; i++) {
+			var roll = Math.random();
+			if (roll>0.55) pos ++;
+			else if (roll>0.1) pos--;
+			// lower bound for lawn
+			if (pos > ~~(0.95*h)) pos--;
+			markov.push(pos);
+		}
+	}
 	
 	this.colorModif = [255, 255, 255];
 
+	this.plainLine = function(x, h){
+		return markov[x];
+	}
 	this.init = function(cv, w, h, rough, type)
 	{
+		//initialize the Markovian lawn line
+		this.lawnMarkovRW(w, h);
 		//initialize local variables
 		width = w;
 		height = h;
@@ -46,14 +63,21 @@ var $plasma = function()
 			for (var y = 0; y < height; y++)
 			{
 				//get color for each pixel
-				var color = this.getColor(this.points[x][y], plasmaType);
-				var xy = [x, y];
-				var c = clamp(fractal.fractalNoise(xy) + randn_bm()*0.01);
-				var red = ~~((color.r+(.55+c)/2 * 256)/2);
-				var green = ~~((color.g+(.55+c)/2 * 256)/2);
-				var blue = ~~((color.b+255)/2);
-				ctx.fillStyle = "rgb("+red+","+green+","+blue+")";
-				ctx.fillRect(x, y, 1, 1);
+				if (y < this.plainLine(x, height)){
+					var red, green, blue;
+					var color = this.getColor(this.points[x][y], plasmaType);
+					var xy = [x, y];
+					var c = clamp(fractal.fractalNoise(xy) + randn_bm()*0.01);
+					red = ~~((color.r+(.55+c)/2 * 256)/2);
+					green = ~~((color.g+(.55+c)/2 * 256)/2);
+					blue = ~~((color.b+255)/2);
+					ctx.fillStyle = "rgb("+red+","+green+","+blue+")";
+					ctx.fillRect(x, y, 1, 1);
+				}else{
+					var backGrassColors = ["#5c9c00", "#9cbc00"];
+					var color = backGrassColors[~~(Math.random()*2)];
+					drawLine(ctx, 1, x, y, ~~(x+randn_bm()*5), ~~(y+randn_bm()*5), color);
+				}
 			}
 		}
 		dataURL = canvas.toDataURL();
