@@ -11,6 +11,7 @@ width = canvas.width;
 height = canvas.height;
 context = canvas.getContext("2d");
 step = 0.0;
+counter = 0;
 toRadian = Math.PI / 180;
 
 nFrontGrass = 300;
@@ -40,10 +41,11 @@ for (var i=1; i<5; i++) {
 	if (Math.random()>0.5) {
 		var cloud = {};
 		cloud.img = document.getElementById("cloud"+i);
-		cloud.dx = ~~(Math.random()*width*0.5);
+		cloud.dx = ~~(Math.random()*width);
 		cloud.dy = ~~(Math.random()*height*0.3);
 		cloud.height = ~~((0.8*height-cloud.dy)*Math.random());
 		cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
+		cloud.speed = Math.random();
 		clouds.push(cloud);
 	}
 }
@@ -67,7 +69,7 @@ function intervalHandler() {
 	  createGrass(context, grass.pos, height, 90, grass.height, grass.level, grass.color);
   }
   for (var cloud of clouds) {
-	  context.drawImage(cloud.img, cloud.dx, cloud.dy, cloud.width, cloud.height);
+	  context.drawImage(cloud.img, width-(~~(cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
   var img = document.getElementById(ids[currentFrame]);
   context.drawImage(img, dx, dy, (height-dy+10)*5/6, (height-dy+10));
@@ -77,7 +79,7 @@ function intervalHandler() {
     createGrass(context, tree.pos, height, 60, tree.height*2/3, tree.level, tree.color);
     createGrass(context, tree.pos, height, 120, tree.height*2/3, tree.level, tree.color);
   }
-  step += (Math.PI / 80) % Math.PI;
+  step += (Math.PI / 80) % Math.PI; counter++;
   currentFrame = (currentFrame+1)%nFrames;
 }
 
