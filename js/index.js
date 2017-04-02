@@ -34,6 +34,19 @@ for (var i=0; i<nFrontGrass; i++) {
   grass.color = frontGrassColors[Math.floor(Math.random() * frontGrassColors.length)];
   frontLawn.push(grass);
 }
+// choose clouds
+var clouds = [];
+for (var i=1; i<5; i++) {
+	if (Math.random()>0.5) {
+		var cloud = {};
+		cloud.img = document.getElementById("cloud"+i);
+		cloud.dx = ~~(Math.random()*width*0.5);
+		cloud.dy = ~~(Math.random()*height*0.3);
+		cloud.height = ~~((0.8*height-cloud.dy)*Math.random());
+		cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
+		clouds.push(cloud);
+	}
+}
 
 ids = ["tmp0", "tmp1", "tmp2", "tmp3",
 		"tmp4", "tmp5", "tmp6", "tmp7",
@@ -52,6 +65,9 @@ function intervalHandler() {
   for (var i=0; i<nBackGrass; i++) {
 	  var grass = backLawn[i];
 	  createGrass(context, grass.pos, height, 90, grass.height, grass.level, grass.color);
+  }
+  for (var cloud of clouds) {
+	  context.drawImage(cloud.img, cloud.dx, cloud.dy, cloud.width, cloud.height);
   }
   var img = document.getElementById(ids[currentFrame]);
   context.drawImage(img, dx, dy, (height-dy+10)*5/6, (height-dy+10));

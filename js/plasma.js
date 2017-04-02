@@ -31,6 +31,8 @@ var $plasma = function()
 			else if (roll>0.1) pos--;
 			// lower bound for lawn
 			if (pos > ~~(0.95*h)) pos--;
+			// upper bound for lawn
+			if (pos < ~~(0.8*h)) pos++;
 			markov.push(pos);
 		}
 	}
