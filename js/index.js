@@ -45,7 +45,7 @@ for (var i=1; i<5; i++) {
 		cloud.dy = ~~(Math.random()*height*0.3);
 		cloud.height = ~~((0.8*height-cloud.dy)*Math.random());
 		cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
-		cloud.speed = Math.random();
+		cloud.speed = Math.random()/10;
 		clouds.push(cloud);
 	}
 }
@@ -69,7 +69,7 @@ function intervalHandler() {
 	  createGrass(context, grass.pos, height, 90, grass.height, grass.level, grass.color);
   }
   for (var cloud of clouds) {
-	  context.drawImage(cloud.img, width-(~~(cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
+	  context.drawImage(cloud.img, width-((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
   var img = document.getElementById(ids[currentFrame]);
   context.drawImage(img, dx, dy, (height-dy+10)*5/6, (height-dy+10));
