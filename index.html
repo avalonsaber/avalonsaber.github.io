@@ -70,31 +70,30 @@
     <img id="tmp7" src="tmp-7.gif">
   </div>
   <div style="display:none;">
-    <img id="cloud1" src="cloud1.png">
+    <img id="cloud1" src="clouds/cloud1.png">
   </div>
   <div style="display:none;">
-    <img id="cloud2" src="cloud2.png">
+    <img id="cloud2" src="clouds/cloud2.png">
   </div>
   <div style="display:none;">
-    <img id="cloud3" src="cloud3.png">
+    <img id="cloud3" src="clouds/cloud3.png">
   </div>
   <div style="display:none;">
-    <img id="cloud4" src="cloud4.png">
+    <img id="cloud4" src="clouds/cloud4.png">
   </div>
+  
+  <script>
+	// load images
+	nImages = 20
+	for (var i = 5; i<=nImages; i++) {
+		document.write("<div style=\"display:none;\"> \
+		<img id=\"cloud"+i+"\" src=\"clouds/cloud"+i+".svg\"> \
+	  </div>");
+	}
+  </script>
   <div style="display:none;">
-    <img id="cloud5" src="cloud5.svg">
-  </div>
-  <div style="display:none;">
-    <img id="cloud6" src="cloud6.svg">
-  </div>
-  <div style="display:none;">
-    <img id="cloud7" src="cloud7.svg">
-  </div>
-  <div style="display:none;">
-    <img id="cloud8" src="cloud8.svg">
-  </div>
-  <div style="display:none;">
-    <img id="cloud9" src="cloud9.svg">
+    <img id="lights" src="lights.svg"
+       width="1920" height="1080">
   </div>
   <div style="display:none;">
     <img id="frame" src="saber.jpg"

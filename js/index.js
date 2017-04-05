@@ -37,13 +37,13 @@ for (var i=0; i<nFrontGrass; i++) {
 }
 // choose clouds
 var clouds = [];
-for (var i=1; i<10; i++) {
+for (var i=1; i<=nImages; i++) {
 	if (Math.random()>0.5) {
 		var cloud = {};
 		cloud.img = document.getElementById("cloud"+i);
 		cloud.dx = ~~(Math.random()*width);
 		cloud.dy = ~~(Math.random()*height*0.3);
-		cloud.height = ~~((0.8*height-cloud.dy)*Math.random());
+		cloud.height = ~~((0.8*height-cloud.dy)*(.5+.5*Math.random()));
 		cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
 		cloud.speed = Math.random()/10;
 		clouds.push(cloud);
@@ -79,6 +79,10 @@ function intervalHandler() {
     createGrass(context, tree.pos, height, 60, tree.height*2/3, tree.level, tree.color);
     createGrass(context, tree.pos, height, 120, tree.height*2/3, tree.level, tree.color);
   }
+  
+  var light_img = document.getElementById("lights");
+  context.drawImage(light_img, 0, 0, width, height);
+  
   step += (Math.PI / 80) % Math.PI; counter++;
   currentFrame = (currentFrame+1)%nFrames;
 }
