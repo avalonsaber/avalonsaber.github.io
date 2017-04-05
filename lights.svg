@@ -4,10 +4,10 @@
     <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blurred"/>
   </filter>
 
-  <line x1="0" y1="0" x2="500" y2="500" stroke-width="40" stroke="rgba(255,255,255,.2)"
+  <line x1="-100" y1="-100" x2="600" y2="600" stroke-width="40" stroke="rgba(255,255,255,.2)"
       style="filter: url(#blurFilter)"/>
-  <line x1="0" y1="200" x2="300" y2="500" stroke-width="40" stroke="rgba(255,255,255,.2)"
+  <line x1="-100" y1="100" x2="400" y2="600" stroke-width="40" stroke="rgba(255,255,255,.2)"
       style="filter: url(#blurFilter)"/>
-  <line x1="0" y1="400" x2="100" y2="500" stroke-width="40" stroke="rgba(255,255,255,.2)"
+  <line x1="-100" y1="300" x2="200" y2="600" stroke-width="40" stroke="rgba(255,255,255,.2)"
       style="filter: url(#blurFilter)"/>
 </svg>

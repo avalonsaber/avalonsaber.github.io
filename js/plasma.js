@@ -69,7 +69,7 @@ var $plasma = function()
 					var red, green, blue;
 					var color = this.getColor(this.points[x][y], plasmaType);
 					var xy = [x, y];
-					var c = clamp(fractal.fractalNoise(xy) + randn_bm()*0.01);
+					var c = clamp(fractal.fractalNoise(xy));
 					red = ~~((color.r+(.55+c)/2 * 256)/2);
 					green = ~~((color.g+(.55+c)/2 * 256)/2);
 					blue = ~~((color.b+255)/2);
