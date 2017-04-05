@@ -37,6 +37,7 @@ for (var i=0; i<nFrontGrass; i++) {
 }
 // choose clouds
 var clouds = [];
+var nImages = 20
 for (var i=1; i<=nImages; i++) {
 	if (Math.random()>0.5) {
 		var cloud = {};
