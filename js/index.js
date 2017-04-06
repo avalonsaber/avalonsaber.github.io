@@ -50,10 +50,10 @@ for (var i=1; i<=nImages; i++) {
 	}
 }
 
-ids = ["tmp0", "tmp1", "tmp2", "tmp3",
-		"tmp4", "tmp5", "tmp6", "tmp7",
-		"tmp7", "tmp6", "tmp5", "tmp4",
-		"tmp3", "tmp2", "tmp1", "tmp0"];
+ids = ["tmp0", "tmp1", "tmp1", "tmp2","tmp2",
+		"tmp3", "tmp4", "tmp5", "tmp6", "tmp7",
+		"tmp7", "tmp6", "tmp5", "tmp4", "tmp3",
+		"tmp2", "tmp2", "tmp1", "tmp1", "tmp0"];
 nFrames = ids.length;
 currentFrame = 0;
 var pl = new $plasma();
@@ -71,8 +71,12 @@ function intervalHandler() {
   for (var cloud of clouds) {
 	  context.drawImage(cloud.img, width-((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
+  // main figure
   var img = document.getElementById(ids[currentFrame]);
-  context.drawImage(img, dx, dy, (height-dy+10)*5/6, (height-dy+10));
+  var fig_width = (height-dy+10)*5/6;
+  var fig_height = (height-dy+10);
+  context.drawImage(img, dx, dy, fig_width, fig_height);
+  
   for (var i=0; i<nFrontGrass; i++) {
     var tree = frontLawn[i];
     createGrass(context, tree.pos, height, 90, tree.height, tree.level, tree.color);
@@ -84,7 +88,7 @@ function intervalHandler() {
   context.drawImage(light_img, 0, 0, width, height);
   
   step += (Math.PI / 80) % Math.PI; counter++;
-  currentFrame = (currentFrame+1)%nFrames;
+  if (Math.random()>.2) currentFrame = (currentFrame+1)%nFrames;
 }
 
 function drawLine(g, n, x1, y1, x2, y2, color){
