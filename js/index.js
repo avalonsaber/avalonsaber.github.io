@@ -1,65 +1,80 @@
+// Now it is ad hoc design.
 // Based on HTML5 Canvas Tree in the Breeze
 // Websites: http://wonderfl.net/c/9KQy and http://cssdeck.com/labs/fjqj6ifd
 
-// Grass
-label = document.getElementById("avalon");
-label.width = window.innerWidth;
-canvas = document.getElementById("myCanvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-width = canvas.width;
-height = canvas.height;
-context = canvas.getContext("2d");
-step = 0.0;
-counter = 0;
-toRadian = Math.PI / 180;
+// Linearly mix two colors by the ratio
+function mixColor(color1, color2, ratio) {
+	var red = ~~(ratio * (parseInt("0x"+color1.substring(1,3))) 
+		+ (1-ratio) * ("0x"+color2.substring(1,3)));
+	var green = ~~(ratio * (parseInt("0x"+color1.substring(3,5))) 
+		+ (1-ratio) * ("0x"+color2.substring(3,5)));
+	var blue = ~~(ratio * (parseInt("0x"+color1.substring(5,7))) 
+		+ (1-ratio) * ("0x"+color2.substring(5,7)));
+	return "rgb("+red+", "+green+", "+blue+")";
+}
 
-nFrontGrass = 300;
-nBackGrass = 500;
-frontLawn = [];
-backLawn = [];
-frontGrassColors = ["#2c9c00", "#dcdc00"];
-for (var i=0; i<nBackGrass; i++) {
-	var grass = {};
-	grass.pos = Math.random()*width;
-	grass.height = Math.random()/10*height;
-	grass.level = Math.floor(Math.random()*2+1);
-	grass.color = frontGrassColors[Math.floor(Math.random() * frontGrassColors.length)];
-	backLawn.push(grass);
-}
-for (var i=0; i<nFrontGrass; i++) {
-  var grass = {};
-  grass.pos = Math.random()*width;
-  grass.height = Math.random()/10*height;
-  grass.level = Math.floor(Math.random()*4+1);
-  grass.color = frontGrassColors[Math.floor(Math.random() * frontGrassColors.length)];
-  frontLawn.push(grass);
-}
-// choose clouds
-var clouds = [];
-nImages = 20
-for (var i=1; i<=nImages; i++) {
-	if (Math.random()>0.5) {
-		var cloud = {};
-		cloud.img = document.getElementById("cloud"+i);
-		cloud.dx = ~~(Math.random()*width);
-		cloud.dy = ~~(Math.random()*height*0.3);
-		cloud.height = ~~((0.8*height-cloud.dy)*(.5+.5*Math.random()));
-		cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
-		cloud.speed = Math.random()/10;
-		clouds.push(cloud);
+$(document).ready(function(){
+	// Grass
+	label = document.getElementById("avalon");
+	label.width = window.innerWidth;
+	canvas = document.getElementById("myCanvas");
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	width = canvas.width;
+	height = canvas.height;
+	context = canvas.getContext("2d");
+	step = 0.0;
+	counter = 0;
+	toRadian = Math.PI / 180;
+
+	nFrontGrass = 300;
+	nBackGrass = 500;
+	frontLawn = [];
+	backLawn = [];
+	frontGrassColors = ["#2c9c00", "#dcdc00"];
+	for (var i=0; i<nBackGrass; i++) {
+		var grass = {};
+		grass.pos = Math.random()*width;
+		grass.height = Math.random()/10*height;
+		grass.level = Math.floor(Math.random()*2+1);
+		grass.color = frontGrassColors[Math.floor(Math.random() * frontGrassColors.length)];
+		backLawn.push(grass);
 	}
-}
+	for (var i=0; i<nFrontGrass; i++) {
+		var grass = {};
+		grass.pos = Math.random()*width;
+		grass.height = Math.random()/10*height;
+		grass.level = Math.floor(Math.random()*4+1);
+		grass.color = mixColor(frontGrassColors[0], frontGrassColors[1], Math.random());
+		frontLawn.push(grass);
+	}
+	// Choose clouds
+	clouds = [];
+	for (var i=1; i<=nImages; i++) {
+		if (Math.random()>0.5) {
+			var cloud = {};
+			cloud.img = document.getElementById("cloud"+i);
+			cloud.dx = ~~(Math.random()*width);
+			cloud.dy = ~~(Math.random()*height*0.3);
+			cloud.height = ~~((0.8*height-cloud.dy)*(.5+.5*Math.random()));
+			cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
+			cloud.speed = Math.random()/10;
+			clouds.push(cloud);
+		}
+	}
 
-ids = ["tmp0", "tmp1", "tmp1", "tmp2","tmp2",
-		"tmp3", "tmp4", "tmp5", "tmp6", "tmp7",
-		"tmp7", "tmp6", "tmp5", "tmp4", "tmp3",
-		"tmp2", "tmp2", "tmp1", "tmp1", "tmp0"];
-nFrames = ids.length;
-currentFrame = 0;
-var pl = new $plasma();
-pl.init(canvas, width, height, 12, 1);
-setInterval(intervalHandler, 200);
+	ids = ["tmp0", "tmp1", "tmp1", "tmp2","tmp2",
+			"tmp3", "tmp4", "tmp5", "tmp6", "tmp7",
+			"tmp7", "tmp6", "tmp5", "tmp4", "tmp3",
+			"tmp2", "tmp2", "tmp1", "tmp1", "tmp0"];
+	nFrames = ids.length;
+	currentFrame = 0;
+	pl = new $plasma();
+	pl.init(canvas, width, height, 12, 1);
+	setInterval(intervalHandler, 200);
+	}
+);
+
 function intervalHandler() {
   pl.draw();
   var dx = .1*width;
@@ -72,7 +87,7 @@ function intervalHandler() {
   for (var cloud of clouds) {
 	  context.drawImage(cloud.img, width-((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
-  // main figure
+  // Draw main figure
   var img = document.getElementById(ids[currentFrame]);
   var fig_width = (height-dy+10)*5/6;
   var fig_height = (height-dy+10);
@@ -85,6 +100,7 @@ function intervalHandler() {
     createGrass(context, tree.pos, height, 120, tree.height*2/3, tree.level, tree.color);
   }
   
+  // Give the light
   var light_img = document.getElementById("lights");
   context.drawImage(light_img, 0, 0, width, height);
   
