@@ -130,7 +130,7 @@ function createGrass(g, px, py, angle, len, n, c) {
     var angleLeft = angle + 30;
     var angleRight = angle - 30;
     len *= 2/3;
-    createGrass(g, x2, y2, angle - 3 * Math.sin(omega * step), len, n-1, c);
+    createGrass(g, x2, y2, angle - 10 * Math.random() * Math.sin(omega * step), len, n-1, c);
     createGrass(g, x1, y1, angleLeft, len*2/3, n-1, c);
     createGrass(g, x1, y1, angleRight, len*2/3, n-1, c);
     createGrass(g, x2, y2, angleLeft, len*2/3, n-1, c);
