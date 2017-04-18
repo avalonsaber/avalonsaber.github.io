@@ -13,8 +13,9 @@ function mixColor(color1, color2, ratio) {
 	return "rgb("+red+", "+green+", "+blue+")";
 }
 
+// TOFIX: browsers cannot load clouds for the first time to load the webpage
 $(document).ready(function(){
-	// Grass
+	// Param setup
 	label = document.getElementById("avalon");
 	label.width = window.innerWidth;
 	canvas = document.getElementById("myCanvas");
@@ -32,6 +33,7 @@ $(document).ready(function(){
 	frontLawn = [];
 	backLawn = [];
 	frontGrassColors = ["#2c9c00", "#dcdc00"];
+	// Remote grass
 	for (var i=0; i<nBackGrass; i++) {
 		var grass = {};
 		grass.pos = Math.random()*width;
@@ -40,6 +42,7 @@ $(document).ready(function(){
 		grass.color = frontGrassColors[Math.floor(Math.random() * frontGrassColors.length)];
 		backLawn.push(grass);
 	}
+	// Front grass
 	for (var i=0; i<nFrontGrass; i++) {
 		var grass = {};
 		grass.pos = Math.random()*width;
@@ -48,7 +51,7 @@ $(document).ready(function(){
 		grass.color = mixColor(frontGrassColors[0], frontGrassColors[1], Math.random());
 		frontLawn.push(grass);
 	}
-	// Choose clouds
+	// Choose clouds at random
 	clouds = [];
 	for (var i=1; i<=nImages; i++) {
 		if (Math.random()>0.5) {
@@ -80,10 +83,12 @@ function intervalHandler() {
   var dx = .1*width;
   var dy = .4*height;
   
+  // Grass backwards
   for (var i=0; i<nBackGrass; i++) {
 	  var grass = backLawn[i];
 	  createGrass(context, grass.pos, height, 90, grass.height, grass.level, grass.color);
   }
+  // Clouds
   for (var cloud of clouds) {
 	  context.drawImage(cloud.img, width-((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
@@ -93,6 +98,7 @@ function intervalHandler() {
   var fig_height = (height-dy+10);
   context.drawImage(img, dx, dy, fig_width, fig_height);
   
+  // Grass in front of the main figure
   for (var i=0; i<nFrontGrass; i++) {
     var tree = frontLawn[i];
     createGrass(context, tree.pos, height, 90, tree.height, tree.level, tree.color);
@@ -108,6 +114,7 @@ function intervalHandler() {
   if (Math.random()>.2) currentFrame = (currentFrame+1)%nFrames;
 }
 
+// Below are the code for Tree in the Breeze.
 function drawLine(g, n, x1, y1, x2, y2, color){
 	g.beginPath();
 	g.lineWidth = n > 0 ? n : 1;
@@ -130,6 +137,7 @@ function createGrass(g, px, py, angle, len, n, c) {
     var angleLeft = angle + 30;
     var angleRight = angle - 30;
     len *= 2/3;
+	// Using randomness gives better motion.
     createGrass(g, x2, y2, angle - 10 * Math.random() * Math.sin(omega * step), len, n-1, c);
     createGrass(g, x1, y1, angleLeft, len*2/3, n-1, c);
     createGrass(g, x1, y1, angleRight, len*2/3, n-1, c);

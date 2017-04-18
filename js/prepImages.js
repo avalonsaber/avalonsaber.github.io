@@ -1,4 +1,5 @@
 // Prepare all the images and GIF frames.
+// TOFIX: failure to load the images for the first time to load the webpage.
 
 nGIFs = 8;
 for (var i = 0; i<nGIFs; i++) {

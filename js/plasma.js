@@ -1,11 +1,14 @@
 /***************************************************************************
  * Do What THe Fuck You Want To Public Licence 2                           *
+ * (This is the original license. We would like MIT license.)              *
  *                                                                         *
  * JavaScript implementation by Piotr Rochala (http://rocha.la/)           *
  * Based on C# work of Serge Meunier (http://www.smokycogs.com/)           *
  *                                                                         *
  * Check this code in action on http://rocha.la/javascript-plasma-fractal  *
  *                                                                         *
+ * This code has been modified for this project's use.                     *
+ * The general idea is Diamond-square algorithm.                           *
  **************************************************************************/
 
 // Standard Normal variate using Box-Muller transform.
