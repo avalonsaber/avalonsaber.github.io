@@ -20,6 +20,7 @@ We are eagerly in need of Saber's portraits for different frames to give a bette
 ## References
 * [Diamond-square algorithm](https://en.wikipedia.org/wiki/Diamond-square_algorithm)
 * [Perlin Noise](https://en.wikipedia.org/wiki/Perlin_noise)
+* [plasma.js](https://gist.github.com/rochal/2839478)
 * [Tree in the Breeze](http://cssdeck.com/labs/fjqj6ifd)
 * [Fractal Clouds](http://www.kevs3d.co.uk/dev/shaders/distancefield3.html)
 * [Markov Process](https://en.wikipedia.org/wiki/Markov_chain)

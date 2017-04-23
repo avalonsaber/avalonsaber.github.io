@@ -57,8 +57,8 @@ $(document).ready(function(){
 		if (Math.random()>0.5) {
 			var cloud = {};
 			cloud.img = document.getElementById("cloud"+i);
-			cloud.dx = ~~(Math.random()*width);
-			cloud.dy = ~~(Math.random()*height*0.3);
+			cloud.dx = ~~(Math.random()*width-0.1*width);
+			cloud.dy = ~~(Math.random()*height*0.3-0.1*height);
 			cloud.height = ~~((0.8*height-cloud.dy)*(.5+.5*Math.random()));
 			cloud.width = ~~(cloud.height/cloud.img.height*cloud.img.width);
 			cloud.speed = Math.random()/10;
@@ -90,7 +90,7 @@ function intervalHandler() {
   }
   // Clouds
   for (var cloud of clouds) {
-	  context.drawImage(cloud.img, width-((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
+	  context.drawImage(cloud.img, ((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
   }
   // Draw main figure
   var img = document.getElementById(ids[currentFrame]);
