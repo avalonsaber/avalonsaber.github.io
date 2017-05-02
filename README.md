@@ -15,7 +15,8 @@ You can save any frame of the animation to obtain a wallpaper which is fit for y
 * Python (optional)
 
 ## Future Works
-We are eagerly in need of Saber's portraits for different frames to give a better animination.
+* We are eagerly in need of Saber's portraits for different frames to give a better animination.
+* The rendering on mobile device is *poor*, especially the clouds, probably for efficiency concern. We are seeking solutions. Please use desktop browsers for now.
 
 ## References
 * [Diamond-square algorithm](https://en.wikipedia.org/wiki/Diamond-square_algorithm)
