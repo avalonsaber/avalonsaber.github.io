@@ -89,8 +89,11 @@ function intervalHandler() {
 	  createGrass(context, grass.pos, height, 90, grass.height, grass.level, grass.color);
   }
   // Clouds
-  for (var cloud of clouds) {
+  // We only render SVG clouds for non-mobile browsers for now.
+  if (window.innerWidth > 800 || window.innerHeight > 600){
+	for (var cloud of clouds) {
 	  context.drawImage(cloud.img, ((cloud.dx+counter*cloud.speed))%(width+cloud.width), cloud.dy, cloud.width, cloud.height);
+	}
   }
   // Draw main figure
   var img = document.getElementById(ids[currentFrame]);
